@@ -1,0 +1,36 @@
+{
+  "name": "rabbit-ui-mobile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src -c .eslintrc.js",
+    "lint:fix": "eslint src -c .eslintrc.js --fix",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-native": "^0.57.8",
+    "prop-types": "^15.6.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.3",
+    "eslint-plugin-react-native": "^3.6.0",
+    "jest": "^23.6.0",
+    "metro-react-native-babel-preset": "^0.51.1",
+    "react-test-renderer": "^16.7.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
