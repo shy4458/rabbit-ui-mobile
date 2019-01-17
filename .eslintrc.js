@@ -13,6 +13,9 @@ module.exports = {
         "no-useless-constructor": "off",
         "comma-dangle": ["error", "never"],
         "react/jsx-indent": ['error', 4],
-        "react/jsx-filename-extension": ['error', {"extensions": [".js", ".jsx"]}]
+        "react/jsx-filename-extension": ['error', {"extensions": [".js", ".jsx"]}],
+        "react/destructuring-assignment": "off",
+        "react/forbid-prop-types": "off",
+        "react/require-default-props": 'off'
     }
 };
