@@ -16,6 +16,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+.DS_Store
 
 # node.js
 node_modules/
