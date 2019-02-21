@@ -2,29 +2,29 @@ import Fonts from '../../../commons/Fonts';
 import Colors from '../../../commons/Colors';
 export default{
 
-  default:{
+  Default:{
     borderWidth: 1,
     justifyContent: 'center',
     alignItems:'center',
   },
 
 
-  buttonSizePadding:{
-    LargeBtnPadding:{
+  ButtonSizePadding:{
+    largeBtnPadding:{
       fontSize: Fonts.xLARGE,
       paddingLeft: 56,
       paddingRight: 56,
       paddingTop: 12,
       paddingBottom: 12,
     },
-    DefaultBtnPadding:{
+    defaultBtnPadding:{
       fontSize: Fonts.BIG,
       paddingLeft: 28,
       paddingRight: 28,
       paddingTop: 10,
       paddingBottom: 10,
     },
-    SmallBtnPadding:{
+    smallBtnPadding:{
       fontSize:Fonts.MIDDLE,
       paddingLeft: 14,
       paddingRight: 14,
@@ -53,7 +53,7 @@ export default{
   },
 
 
-  disabledStyles : {
+  DisabledStyles : {
     tureStyles : {
       default:{
         backgroundColor:Colors.white,

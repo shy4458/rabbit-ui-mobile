@@ -80,7 +80,7 @@ export default class Button extends Component<Props> {
   //按钮大小
   getPropsSize() {
       let {size} = this.props;
-      return size === buttonSize.Large ? Styles.buttonSizePadding.LargeBtnPadding : (size === buttonSize.Default ? Styles.buttonSizePadding.DefaultBtnPadding : Styles.buttonSizePadding.SmallBtnPadding)
+      return size === buttonSize.Large ? Styles.ButtonSizePadding.largeBtnPadding : (size === buttonSize.Default ? Styles.ButtonSizePadding.defaultBtnPadding : Styles.ButtonSizePadding.smallBtnPadding)
   }
 
   //按钮背景色
@@ -91,17 +91,17 @@ export default class Button extends Component<Props> {
       } else {
         switch (type) {
             case "default":
-                return disabled ? Styles.disabledStyles.tureStyles.default:Styles.disabledStyles.falseStyles.default
+                return disabled ? Styles.DisabledStyles.tureStyles.default:Styles.DisabledStyles.falseStyles.default
             case "primary":
-                return disabled ? Styles.disabledStyles.tureStyles.primary:Styles.disabledStyles.falseStyles.primary
+                return disabled ? Styles.DisabledStyles.tureStyles.primary:Styles.DisabledStyles.falseStyles.primary
             case "success":
-                return disabled ? Styles.disabledStyles.tureStyles.success:Styles.disabledStyles.falseStyles.success
+                return disabled ? Styles.DisabledStyles.tureStyles.success:Styles.DisabledStyles.falseStyles.success
             case "warning":
-                return disabled ? Styles.disabledStyles.tureStyles.warning:Styles.disabledStyles.falseStyles.warning
+                return disabled ? Styles.DisabledStyles.tureStyles.warning:Styles.DisabledStyles.falseStyles.warning
             case "danger":
-                return disabled ? Styles.disabledStyles.tureStyles.danger:Styles.disabledStyles.falseStyles.danger
+                return disabled ? Styles.DisabledStyles.tureStyles.danger:Styles.DisabledStyles.falseStyles.danger
             default: {
-                return  disabled ? Styles.disabledStyles.tureStyles.default:Styles.disabledStyles.falseStyles.default
+                return  disabled ? Styles.DisabledStyles.tureStyles.default:Styles.DisabledStyles.falseStyles.default
             }
           }
       }
@@ -154,7 +154,7 @@ export default class Button extends Component<Props> {
     const getTextColor = this.getPropsTextColor();
     const getSize = this.getPropsSize();
     return (
-      <TouchableOpacity style = {[Styles.default,getColors,getblock,getRadius]}
+      <TouchableOpacity style = {[Styles.Default,getColors,getblock,getRadius]}
         onPress={onClick}
         onLongPress={onLongClick}
         onlayout={({event}) => this._onlayout(event)}
