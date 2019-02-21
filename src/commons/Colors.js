@@ -3,6 +3,7 @@ import mix from './color-mix';
 const NAMED_Colors = {
 
   white:'rgba(255,255,255, 1)',
+  whiteAlpha0:'rgba(255,255,255, 0)',
   yellow: "rgba(246, 253, 55, 1)",
   green: "rgba(106, 246, 162, 1)",
   purple: "rgba(144, 63, 199, 1)",
@@ -13,10 +14,10 @@ const NAMED_Colors = {
 
 
 let defaultColor = '#b5b5b5';
-let primaryColor = '1890ff';
-let successColor = '2dd017';
-let warningColor = 'f4b234';
-let dangerColor  = 'ef5656';
+let primaryColor = '#1890ff';
+let successColor = '#2dd017';
+let warningColor = '#f4b234';
+let dangerColor  = '#ef5656';
 
 let white = '#ffffff';
 let black = '#000000';
@@ -48,7 +49,7 @@ export default{
     /* 菜单栏图标颜色 */
     iconColor : '#888888',
     /* 中浅色菜单栏图标颜色 */
-    iconLightColor : 'dddddd',
+    iconLightColor : '#dddddd',
 
     dark10: '#20303C',
     dark20: '#43515C',

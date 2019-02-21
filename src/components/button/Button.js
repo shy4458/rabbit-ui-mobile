@@ -9,6 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import Colors from '../../commons/Colors';
 import Fonts from '../../commons/Fonts';
+import Styles from './Styles/Styles';
 
 
 const buttonType = {
@@ -28,21 +29,9 @@ const buttonSize = {
 const iconPosition = {
     Left : 'left',
     Right : 'right',
-    Up : 'up',
-    Down : 'down'
+    Top : 'top',
+    Bottom : 'bottom'
 }
-
-const sizeArr = [
-  {
-    width: 120,
-    height: 50,
-  }, {
-    width: 100,
-    height: 40,
-  }, {
-    width: 80,
-    height: 30,
-},];
 
 export default class Button extends Component<Props> {
 
@@ -53,44 +42,19 @@ export default class Button extends Component<Props> {
     }
   }
 
-  //按钮文字,默认
-  getPropsText() {
-      let {type, children} = this.props;
-      switch (type) {
-          case "default":
-              return children = children == null ? buttonType.Default : children.toString();
-          case "primary":
-              return children = children == null ? buttonType.Primary : children.toString();
-          case "success":
-              return children = children == null ? buttonType.Success : children.toString();
-          case "warning":
-              return children = children == null ? buttonType.Warning : children.toString();
-          case "danger":
-              return children = children == null ? buttonType.Danger : children.toString();
-          default: {
-              return children = children == null ? buttonType.Default : children.toString();
-          }
-      }
+  getblock(){
+    let {block} = this.props;
+    if (block) {
+      return {width : '100%'}
+    }
   }
 
-  //按钮背景色
-  getPropsColor() {
-      let {type} = this.props;
-      switch (type) {
-          case "default":
-              return {backgroundColor:Colors.defaultColor}
-          case "primary":
-              return {backgroundColor:Colors.primaryColor}
-          case "success":
-              return {backgroundColor:Colors.successColor}
-          case "warning":
-              return {backgroundColor:Colors.warningColor}
-          case "danger":
-              return {backgroundColor:Colors.dangerColor}
-          default: {
-              return {backgroundColor:Colors.defaultColor}
-          }
-      }
+  getIconPosition(){
+    let {icon,iconPosition} = this.props;
+
+    if (!icon && !iconPosition) {
+
+    }
   }
 
   //设置自定义圆角
@@ -101,23 +65,11 @@ export default class Button extends Component<Props> {
       } else if( circle ){
           switch (size) {
             case buttonSize.Small:
-              return {
-                width: 14,
-                height:14,
-                borderRadius:7
-              }
+              return Styles.RadiusStyle.buttonSizeSmall
             case buttonSize.Default:
-              return {
-                width: 16,
-                height:16,
-                borderRadius:8
-              }
+              return Styles.RadiusStyle.buttonSizeDefault
             case buttonSize.Large:
-              return {
-                width: 20,
-                height:20,
-                borderRadius:10
-              }
+              return Styles.RadiusStyle.buttonSizeLagre
           }
       }else {
         return {borderRadius: radius = radius == null ? 5 : radius}
@@ -128,16 +80,58 @@ export default class Button extends Component<Props> {
   //按钮大小
   getPropsSize() {
       let {size} = this.props;
-      return size = size === buttonSize.Large ? sizeArr[0] : (size === buttonSize.Default ? sizeArr[1] : sizeArr[2])
+      return size === buttonSize.Large ? Styles.buttonSizePadding.LargeBtnPadding : (size === buttonSize.Default ? Styles.buttonSizePadding.DefaultBtnPadding : Styles.buttonSizePadding.SmallBtnPadding)
+  }
+
+  //按钮背景色
+  getPropsColor() {
+      let {type , text ,disabled} = this.props;
+      if (text) {
+        return {backgroundColor:Colors.NAMED_Colors.whiteAlpha0,borderColor:Colors.NAMED_Colors.whiteAlpha0}
+      } else {
+        switch (type) {
+            case "default":
+                return disabled ? Styles.disabledStyles.tureStyles.default:Styles.disabledStyles.falseStyles.default
+            case "primary":
+                return disabled ? Styles.disabledStyles.tureStyles.primary:Styles.disabledStyles.falseStyles.primary
+            case "success":
+                return disabled ? Styles.disabledStyles.tureStyles.success:Styles.disabledStyles.falseStyles.success
+            case "warning":
+                return disabled ? Styles.disabledStyles.tureStyles.warning:Styles.disabledStyles.falseStyles.warning
+            case "danger":
+                return disabled ? Styles.disabledStyles.tureStyles.danger:Styles.disabledStyles.falseStyles.danger
+            default: {
+                return  disabled ? Styles.disabledStyles.tureStyles.default:Styles.disabledStyles.falseStyles.default
+            }
+          }
+      }
+  }
+
+  //按钮文字,默认
+  getPropsTextColor() {
+      let {type, text ,disabled} = this.props;
+      switch (type) {
+          case "default":
+            return disabled ? {color:Colors.defaultColor05} : {color:Colors.titleColor}
+          case "primary":
+            return text ? {color:Colors.primary} : {color:Colors.white}
+          case "success":
+            return text ? {color:Colors.successColor} : {color:Colors.white}
+          case "warning":
+            return text ? {color:Colors.warningColor} : {color:Colors.white}
+          case "danger":
+            return text ? {color:Colors.dangerColor} : {color:Colors.white}
+          default : {
+            return {color:Colors.titleColor}
+          }
+      }
   }
 
   render() {
     const {
       type,
       radius,
-      textColor,
-      textSize,
-      backgroundColor,
+      text,
       size,
       disabled,
       block,
@@ -153,30 +147,35 @@ export default class Button extends Component<Props> {
       children
     } = this.props;
 
-    const getColors = this.getPropsColor();
-    const getText = this.getPropsColor();
-    const getSize = this.getPropsSize();
+    const getColors = this.getPropsColor()
+    const getRadius = this.getPropsRadius();
+    const getblock = this.getblock();
 
+    const getTextColor = this.getPropsTextColor();
+    const getSize = this.getPropsSize();
     return (
-      <TouchableOpacity style = {[styles.default,getColors,getSize]} onPress={onClick} onLongPress={onLongClick}>
-        <Text>safladjfasd</Text>
+      <TouchableOpacity style = {[Styles.default,getColors,getblock,getRadius]}
+        onPress={onClick}
+        onLongPress={onLongClick}
+        onlayout={({event}) => this._onlayout(event)}
+        disabled = {disabled}
+        >
+        <Text style={[getTextColor,getSize]}>{children}</Text>
       </TouchableOpacity>
     );
   }
 };
 
 Button.propTypes = {
-  type:PropTypes.string,
+  type:PropTypes.oneOf([ buttonType.Default, buttonType.Primary, buttonType.Success, buttonType.Warning, buttonType.Danger]),
   radius:PropTypes.number,
-  textColor:PropTypes.object,
-  textSize:PropTypes.number,
-  backgroundColor:PropTypes.object,
-  size:PropTypes.string,
+  text:PropTypes.bool,
+  size:PropTypes.oneOf([buttonSize.Large,buttonSize.Default,buttonSize.Small]),
   disabled:PropTypes.bool,
   block:PropTypes.bool,//设置按钮适应父布局
   loading:PropTypes.bool,
   icon:PropTypes.string,
-  iconPosition:PropTypes.string,
+  iconPosition:PropTypes.oneOf([iconPosition.Top,iconPosition.Bottom,iconPosition.Left,iconPosition.Right]),
   circle:PropTypes.bool,
   round:PropTypes.bool,
   onClick:PropTypes.func,
@@ -184,17 +183,3 @@ Button.propTypes = {
   onDoubleClick:PropTypes.func,
   Component:PropTypes.object,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title:{
-    color: Colors.white,
-  },
-  default:{
-    borderWidth: 1,
-    borderColor: Colors.black
-  },
-
-});
