@@ -1,6 +1,9 @@
+import mix from './color-mix';
+
 const NAMED_Colors = {
 
   white:'rgba(255,255,255, 1)',
+  whiteAlpha0:'rgba(255,255,255, 0)',
   yellow: "rgba(246, 253, 55, 1)",
   green: "rgba(106, 246, 162, 1)",
   purple: "rgba(144, 63, 199, 1)",
@@ -9,7 +12,45 @@ const NAMED_Colors = {
   orange: "rgba(247, 144, 77, 1)",
 };
 
-const Palette_Colors = {
+
+let defaultColor = '#b5b5b5';
+let primaryColor = '#1890ff';
+let successColor = '#2dd017';
+let warningColor = '#f4b234';
+let dangerColor  = '#ef5656';
+
+let white = '#ffffff';
+let black = '#000000';
+
+export default{
+
+    NAMED_Colors,
+    primary: '#06C1AE',
+    border: '#e0e0e0',
+    paper: '#f3f3f3',
+    gray: '#979797',
+
+    /* 主要文字 标题性文字 重要文字 已经输入完文字 结果 */
+    titleColor : '#333333',
+    /* 说明文字 普通文字 */
+    explainColor : '#666666',
+    /* 提示文字 不重要文字 */
+    subTitleColor : '#999999',
+    /* 分割线 */
+    lineColor : '#e5e5e5',
+    /* 禁用状态 */
+    disableColor : '#e9e9e9',
+    /* 背景色 */
+    backGruoudColor : '#f5f5f5',
+    /* 背景颜色 按钮 */
+    buttonTitleColor : '#ffffff',
+    /* 提示类文字颜色 */
+    promptColor : '#bfbfbf',
+    /* 菜单栏图标颜色 */
+    iconColor : '#888888',
+    /* 中浅色菜单栏图标颜色 */
+    iconLightColor : '#dddddd',
+
     dark10: '#20303C',
     dark20: '#43515C',
     dark30: '#66737C',
@@ -92,47 +133,63 @@ const Palette_Colors = {
     violet70: '#E3D8ED',
     violet80: '#F1EBF6',
     // WHITE,
-    white: '#ffffff',
-    black: '#000000',
-};
+    white,
+    black,
 
-const THEME_Color = {
-    NAMED_Colors,
-    Palette_Colors,
-    Theme:NAMED_Colors.white,
+    defaultColor,
+    defaultColor01 : mix( defaultColor , white , 0.1),
+    defaultColor02 : mix( defaultColor , white , 0.2),
+    defaultColor03 : mix( defaultColor , white , 0.3),
+    defaultColor04 : mix( defaultColor , white , 0.4),
+    defaultColor05 : mix( defaultColor , white , 0.5),
+    defaultColor06 : mix( defaultColor , white , 0.6),
+    defaultColor07 : mix( defaultColor , white , 0.7),
+    defaultColor08 : mix( defaultColor , white , 0.8),
+    defaultColor09 : mix( defaultColor , white , 0.9),
 
-}
+    primaryColor,
+    primaryColor01 : mix( primaryColor , white , 0.1),
+    primaryColor02 : mix( primaryColor , white , 0.2),
+    primaryColor03 : mix( primaryColor , white , 0.3),
+    primaryColor04 : mix( primaryColor , white , 0.4),
+    primaryColor05 : mix( primaryColor , white , 0.5),
+    primaryColor06 : mix( primaryColor , white , 0.6),
+    primaryColor07 : mix( primaryColor , white , 0.7),
+    primaryColor08 : mix( primaryColor , white , 0.8),
+    primaryColor09 : mix( primaryColor , white , 0.9),
 
-export default{
+    successColor ,
+    successColor01 : mix( successColor , white , 0.1),
+    successColor02 : mix( successColor , white , 0.2),
+    successColor03 : mix( successColor , white , 0.3),
+    successColor04 : mix( successColor , white , 0.4),
+    successColor05 : mix( successColor , white , 0.5),
+    successColor06 : mix( successColor , white , 0.6),
+    successColor07 : mix( successColor , white , 0.7),
+    successColor08 : mix( successColor , white , 0.8),
+    successColor09 : mix( successColor , white , 0.9),
 
-    THEME_Color,
-    primary: '#06C1AE',
-    border: '#e0e0e0',
-    paper: '#f3f3f3',
-    gray: '#979797',
+    warningColor ,
+    warningColor01 : mix( warningColor , white , 0.1),
+    warningColor02 : mix( warningColor , white , 0.2),
+    warningColor03 : mix( warningColor , white , 0.3),
+    warningColor04 : mix( warningColor , white , 0.4),
+    warningColor05 : mix( warningColor , white , 0.5),
+    warningColor06 : mix( warningColor , white , 0.6),
+    warningColor07 : mix( warningColor , white , 0.7),
+    warningColor08 : mix( warningColor , white , 0.8),
+    warningColor09 : mix( warningColor , white , 0.9),
 
-    /* 主要文字 标题性文字 重要文字 已经输入完文字 结果 */
-    titleColor : '#333333',
-    /* 说明文字 普通文字 */
-    explainColor : '#666666',
-    /* 提示文字 不重要文字 */
-    subTitleColor : '#999999',
-    /* 分割线 */
-    lineColor : '#e5e5e5',
-    /* 禁用状态 */
-    disableColor : '#e9e9e9',
-    /* 背景色 */
-    backGruoudColor : '#f5f5f5',
-    /* 背景颜色 按钮 */
-    buttonTitleColor : '#ffffff',
-    /* 提示类文字颜色 */
-    promptColor : '#bfbfbf',
-    /* 菜单栏图标颜色 */
-    iconColor : '#888888',
-    /* 中浅色菜单栏图标颜色 */
-    iconLightColor : 'dddddd',
-
-
+    dangerColor,
+    dangerColor01 : mix( dangerColor , white , 0.1),
+    dangerColor02 : mix( dangerColor , white , 0.2),
+    dangerColor03 : mix( dangerColor , white , 0.3),
+    dangerColor04 : mix( dangerColor , white , 0.4),
+    dangerColor05 : mix( dangerColor , white , 0.5),
+    dangerColor06 : mix( dangerColor , white , 0.6),
+    dangerColor07 : mix( dangerColor , white , 0.7),
+    dangerColor08 : mix( dangerColor , white , 0.8),
+    dangerColor09 : mix( dangerColor , white , 0.9),
 
 
 
