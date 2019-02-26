@@ -25,7 +25,7 @@ export default class Avatar extends Component{
 
   _getSize(){
     let {size,shape} = this.props;
-    if (size,shape) {
+    if (size) {
       return typeof(size)==='number' ? {
         width: size,
         height : size,
@@ -38,9 +38,14 @@ export default class Avatar extends Component{
     }
   }
 
+
   _getSrc(){
     let {src} = this.props;
-    return !src ? {backGruoudColor:Colors.white,borderWidth: 1,borderColor: Colors.defaultColor} : {}
+    if (src) {
+      return {backgruoudColor:Colors.white,borderWidth: 1,borderColor: Colors.defaultColor}
+    } else {
+      return {backgroundColor:Colors.defaultColor,borderColor:Colors.defaultColor,borderWidth:1}
+    }
   }
 
   _getChildren(){
@@ -71,10 +76,17 @@ export default class Avatar extends Component{
     const getChildren = this._getChildren();
     const getSrc = this._getSrc();
     return (
-      <TouchableOpacity style={[styles.container,getSrc,style]}>
+      <TouchableOpacity ref='AvatarTouch'
+        style={[styles.container,getsize,getSrc,style]}>
         {src ?
-          <Image source={{uri:src}} style={[{width: 60,height: 60},getsize,imgStyle]}/> :
-          <Text style={[getsize]}>{getChildren}</Text>
+          <Image source={{uri:src}}
+            style={[{width: 60,height: 60},getsize,imgStyle]}/> :
+          <Text numberOfLines={1}
+            textTransform='capitalize'
+            style={[styles.text]}
+            >
+              {getChildren}
+            </Text>
         }
       </TouchableOpacity>
     );
@@ -83,8 +95,14 @@ export default class Avatar extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:Colors.NAMED_Colors.whiteAlpha0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  text:{
+    color:'white',
+    textAlign: 'center',
+    fontSize: 15,
+  }
 });
 
 Avatar.propTypes = {
@@ -93,7 +111,7 @@ Avatar.propTypes = {
   icon:PropTypes.string,
   src:PropTypes.string,
   showOneChar:PropTypes.bool,
-  showCharIndex:PropTypes.bool,
+  showCharIndex:PropTypes.number,
   style:PropTypes.object,
   imgStyle:PropTypes.object,
   onError:PropTypes.func,
