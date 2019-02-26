@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
 import Colors from '../../commons/Colors';
 import Fonts from '../../commons/Fonts';
 import Styles from './Styles/Styles';
-
+import Icon from '../icon/Icon';
+import IconMap from '../icon/iconmap';
 
 const buttonType = {
   Default : 'default',
@@ -26,7 +27,7 @@ const buttonSize = {
   Large : 'large'
 };
 
-const iconPosition = {
+const positionType = {
     Left : 'left',
     Right : 'right',
     Top : 'top',
@@ -50,10 +51,28 @@ export default class Button extends Component<Props> {
   }
 
   getIconPosition(){
-    let {icon,iconPosition} = this.props;
+    let {iconPosition} = this.props;
+    if (iconPosition) {
+      if (iconPosition == positionType.Left || iconPosition == positionType.Right) {
+        return {flexDirection: 'row'}
+      }
+    }
+  }
 
-    if (!icon && !iconPosition) {
+  getLoading(){
+    let {loading}= this.props;
+    if (loading) {
+      return <Icon name={IconMap.loading}/>
+    }
+  }
 
+
+  renderNode() {
+    let {icon} = this.props;
+
+    if (icon) {
+
+      return <Icon name={icon} />
     }
   }
 
@@ -153,14 +172,21 @@ export default class Button extends Component<Props> {
 
     const getTextColor = this.getPropsTextColor();
     const getSize = this.getPropsSize();
+    const getPosition = this.getIconPosition();
+    const getLoading = this.getLoading();
+    const renderNode = this.renderNode();
+
     return (
-      <TouchableOpacity style = {[Styles.Default,getColors,getblock,getRadius]}
+      <TouchableOpacity style = {[Styles.Default,getPosition,getColors,getblock,getRadius]}
         onPress={onClick}
         onLongPress={onLongClick}
         onlayout={({event}) => this._onlayout(event)}
         disabled = {disabled}
         >
+        {loading && getLoading}
+        {!text && !loading && iconPosition == positionType.Left && renderNode}
         <Text style={[getTextColor,getSize]}>{children}</Text>
+        {!text && !loading && iconPosition == positionType.Right && renderNode}
       </TouchableOpacity>
     );
   }
@@ -175,7 +201,7 @@ Button.propTypes = {
   block:PropTypes.bool,//设置按钮适应父布局
   loading:PropTypes.bool,
   icon:PropTypes.string,
-  iconPosition:PropTypes.oneOf([iconPosition.Top,iconPosition.Bottom,iconPosition.Left,iconPosition.Right]),
+  iconPosition:PropTypes.oneOf([positionType.Top,positionType.Bottom,positionType.Left,positionType.Right]),
   circle:PropTypes.bool,
   round:PropTypes.bool,
   onClick:PropTypes.func,
@@ -183,3 +209,16 @@ Button.propTypes = {
   onDoubleClick:PropTypes.func,
   Component:PropTypes.object,
 };
+
+Button.defaultProps = {
+  type:buttonSize.Default,
+  text:false,
+  size:buttonSize.Default,
+  disabled:false,
+  block:false,
+  loading:false,
+  icon:null,
+  iconPosition:null,
+  circle:false,
+  round:false
+}
