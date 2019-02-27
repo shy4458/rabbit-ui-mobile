@@ -14,7 +14,7 @@ class Button extends React.PureComponent {
             </View>
         );
     }
+
 }
 
 module.exports = Button;
-
