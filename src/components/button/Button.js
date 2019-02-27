@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Colors from '../../commons/Colors';
@@ -43,14 +43,14 @@ export default class Button extends Component<Props> {
     }
   }
 
-  getblock(){
+  _getblock(){
     let {block} = this.props;
     if (block) {
       return {width : '100%'}
     }
   }
 
-  getIconPosition(){
+  _getIconPosition(){
     let {iconPosition} = this.props;
     if (iconPosition) {
       if (iconPosition == positionType.Left || iconPosition == positionType.Right) {
@@ -59,7 +59,7 @@ export default class Button extends Component<Props> {
     }
   }
 
-  getLoading(){
+  _getLoading(){
     let {loading}= this.props;
     if (loading) {
       return <Icon name={IconMap.loading}/>
@@ -67,17 +67,17 @@ export default class Button extends Component<Props> {
   }
 
 
-  renderNode() {
-    let {icon} = this.props;
-
+  _renderNode() {
+    let {icon,size} = this.props;
+    let fontsize = size === buttonSize.Large ? Fonts.LARGE : (size === buttonSize.Default ? Fonts.BIG:Fonts.SMALL)
+    const getTextColor = this._getPropsTextColor()
     if (icon) {
-
-      return <Icon name={icon} />
+      return <Icon name={icon} size={fontsize} style={getTextColor}/>
     }
   }
 
   //设置自定义圆角
-  getPropsRadius() {
+  _getPropsRadius() {
       let {radius,circle,round, size} = this.props;
       if ( round ) {
         return {borderRadius:1000}
@@ -97,13 +97,23 @@ export default class Button extends Component<Props> {
   }
 
   //按钮大小
-  getPropsSize() {
+  _getFontSize() {
       let {size} = this.props;
+      return size === buttonSize.Large ? {fontSize:Fonts.LARGE}: (size === buttonSize.Default ? {fontSize:Fonts.BIG}: {fontSize:Fonts.SMALL})
+  }
+
+  _getTouchSize() {
+    let {size,circle} = this.props;
+    if (circle) {
+      return {}
+    } else {
       return size === buttonSize.Large ? Styles.ButtonSizePadding.largeBtnPadding : (size === buttonSize.Default ? Styles.ButtonSizePadding.defaultBtnPadding : Styles.ButtonSizePadding.smallBtnPadding)
+    }
+
   }
 
   //按钮背景色
-  getPropsColor() {
+  _getPropsColor() {
       let {type , text ,disabled} = this.props;
       if (text) {
         return {backgroundColor:Colors.NAMED_Colors.whiteAlpha0,borderColor:Colors.NAMED_Colors.whiteAlpha0}
@@ -127,7 +137,7 @@ export default class Button extends Component<Props> {
   }
 
   //按钮文字,默认
-  getPropsTextColor() {
+  _getPropsTextColor() {
       let {type, text ,disabled} = this.props;
       switch (type) {
           case "default":
@@ -166,25 +176,26 @@ export default class Button extends Component<Props> {
       children
     } = this.props;
 
-    const getColors = this.getPropsColor()
-    const getRadius = this.getPropsRadius();
-    const getblock = this.getblock();
+    const getColors = this._getPropsColor()
+    const getRadius = this._getPropsRadius();
+    const getblock = this._getblock();
+    const getTouchSize = this._getTouchSize();
 
-    const getTextColor = this.getPropsTextColor();
-    const getSize = this.getPropsSize();
-    const getPosition = this.getIconPosition();
-    const getLoading = this.getLoading();
-    const renderNode = this.renderNode();
+    const getTextColor = this._getPropsTextColor();
+    const getSize = this._getFontSize();
+    const getPosition = this._getIconPosition();
+    const getLoading = this._getLoading();
+    const renderNode = this._renderNode();
 
     return (
-      <TouchableOpacity style = {[Styles.Default,getPosition,getColors,getblock,getRadius]}
+      <TouchableOpacity style = {[Styles.Default,getPosition,getColors,getblock,getRadius,getTouchSize]}
         onPress={onClick}
         onLongPress={onLongClick}
         onlayout={({event}) => this._onlayout(event)}
         disabled = {disabled}
-        >
+      >
         {loading && getLoading}
-        {!text && !loading && iconPosition == positionType.Left && renderNode}
+        {!text && !loading && !iconPosition && renderNode}
         <Text style={[getTextColor,getSize]}>{children}</Text>
         {!text && !loading && iconPosition == positionType.Right && renderNode}
       </TouchableOpacity>

@@ -11,21 +11,18 @@ export default{
 
   ButtonSizePadding:{
     largeBtnPadding:{
-      fontSize: Fonts.xLARGE,
       paddingLeft: 56,
       paddingRight: 56,
       paddingTop: 12,
       paddingBottom: 12,
     },
     defaultBtnPadding:{
-      fontSize: Fonts.BIG,
       paddingLeft: 28,
       paddingRight: 28,
       paddingTop: 10,
       paddingBottom: 10,
     },
     smallBtnPadding:{
-      fontSize:Fonts.MIDDLE,
       paddingLeft: 14,
       paddingRight: 14,
       paddingTop: 8,
@@ -38,7 +35,7 @@ export default{
     buttonSizeLagre:{
       width: 40,
       height:40,
-      borderRadius:20
+      borderRadius:20,
     },
     buttonSizeDefault:{
       width: 32,
