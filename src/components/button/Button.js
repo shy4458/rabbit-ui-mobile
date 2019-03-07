@@ -176,6 +176,24 @@ export default class Button extends Component<Props> {
       children
     } = this.props;
 
+    const onPress = (e) =>{
+      if (!!disabled||!!loading) {
+        return
+      }
+      if (onClick) {
+        onClick(e)
+      }
+    }
+
+    const onLongPress = (e) =>{
+      if (!!disabled||!!loading) {
+        return
+      }
+      if (onLongClick) {
+        onLongClick(e)
+      }
+    }
+
     const getColors = this._getPropsColor()
     const getRadius = this._getPropsRadius();
     const getblock = this._getblock();
@@ -189,14 +207,14 @@ export default class Button extends Component<Props> {
 
     return (
       <TouchableOpacity style = {[Styles.Default,getPosition,getColors,getblock,getRadius,getTouchSize]}
-        onPress={onClick}
-        onLongPress={onLongClick}
+        onPress={onPress}
+        onLongPress={onLongPress}
         onlayout={({event}) => this._onlayout(event)}
         disabled = {disabled}
       >
         {loading && getLoading}
         {!text && !loading && !iconPosition && renderNode}
-        <Text style={[getTextColor,getSize]}>{children}</Text>
+        {icon ? null : <Text style={[getTextColor,getSize]}>{children}</Text>}
         {!text && !loading && iconPosition == positionType.Right && renderNode}
       </TouchableOpacity>
     );
