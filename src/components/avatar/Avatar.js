@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import Colors from '../../commons/Colors';
 import Fonts from '../../commons/Fonts';
 
+import Icon from '../icon/Icon';
+
 const shapeType = {
   Circle : 'circle',
   Square : 'square'
@@ -55,6 +57,16 @@ export default class Avatar extends Component{
     }
   }
 
+  _getIcon(){
+    let {icon} = this.props;
+    if (!!icon) {
+      return <Icon name={icon} />
+    } else {
+      const getChildren = this._getChildren();
+      return  <Text numberOfLines={1} textTransform='capitalize' style={[styles.text]}>{getChildren}</Text>
+    }
+  }
+
   render() {
     const
     {
@@ -71,22 +83,34 @@ export default class Avatar extends Component{
       onLongClick,
       children
     } = this.props;
+    const onPress = (e) =>{
+      if (!!disabled||!!loading) {
+        return
+      }
+      if (onClick) {
+        onClick(e)
+      }
+    }
+
+    const onLongPress = (e) =>{
+      if (!!disabled||!!loading) {
+        return
+      }
+      if (onLongClick) {
+        onLongClick(e)
+      }
+    }
 
     const getsize = this._getSize();
-    const getChildren = this._getChildren();
     const getSrc = this._getSrc();
+    const getIcon = this._getIcon();
     return (
       <TouchableOpacity ref='AvatarTouch'
-        style={[styles.container,getsize,getSrc,style]}>
+        style={[styles.container,getsize,getSrc,style]}
+          onPress={onPress} onLongPress={onLongPress}>
         {src ?
           <Image source={{uri:src}}
-            style={[{width: 60,height: 60},getsize,imgStyle]}/> :
-          <Text numberOfLines={1}
-            textTransform='capitalize'
-            style={[styles.text]}
-            >
-              {getChildren}
-            </Text>
+            style={[{width: 60,height: 60},getsize,imgStyle]}/> : getIcon
         }
       </TouchableOpacity>
     );
@@ -106,7 +130,7 @@ const styles = StyleSheet.create({
 });
 
 Avatar.propTypes = {
-  size:PropTypes.oneOfType([PropTypes.number,[sizeType.Large,sizeType.Default,sizeType.smSmall]]),
+  size:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
   shape:PropTypes.oneOf([shapeType.Circle,shapeType.Square]),
   icon:PropTypes.string,
   src:PropTypes.string,
@@ -122,4 +146,6 @@ Avatar.propTypes = {
 Avatar.defaultProps = {
   showOneChar:true,
   showCharIndex:0,
+  size:'default',
+  shape:'circle',
 };

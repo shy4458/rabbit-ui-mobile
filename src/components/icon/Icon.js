@@ -5,6 +5,7 @@ import {
   Text,
 } from 'react-native';
 import PropsTypes from 'prop-types';
+import Iconmap from './iconmap';
 
 export default class Icon extends Component{
 
@@ -17,7 +18,7 @@ export default class Icon extends Component{
     } = this.props;
 
     return (
-      <Text style={[styles.container,{color:color,fontSize: size},style]}>{String.fromCharCode(name)}</Text>
+      <Text style={[styles.container,{color:color,fontSize: size},style]}>{String.fromCharCode(Iconmap[name])}</Text>
     );
   }
 }
@@ -27,7 +28,7 @@ Icon.propTypes = {
   name:PropsTypes.string,
   size:PropsTypes.number,
   color:PropsTypes.string,
-  style:PropsTypes.object,
+  style:PropsTypes.any,
 }
 
 const styles = StyleSheet.create({
