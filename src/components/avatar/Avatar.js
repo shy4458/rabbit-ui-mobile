@@ -57,13 +57,26 @@ export default class Avatar extends Component{
     }
   }
 
+  _textSize(){
+    let{size,icon}=this.props;
+    switch (size) {
+      case 'large':
+      return !!icon ? {fontSize:26} : {fontSize:18}
+      case 'default':
+      return !!icon ? {fontSize:22} :{fontSize:15}
+      case 'small':
+      return !!icon ? {fontSize:18} :{fontSize:10}
+    }
+  }
+
   _getIcon(){
-    let {icon} = this.props;
+    let {icon,textStyle} = this.props;
+    const getsize = this._textSize()
     if (!!icon) {
-      return <Icon name={icon} />
+      return <Icon name={icon} style={[getsize,textStyle]}/>
     } else {
       const getChildren = this._getChildren();
-      return  <Text numberOfLines={1} textTransform='capitalize' style={[styles.text]}>{getChildren}</Text>
+      return  <Text numberOfLines={1} textTransform='capitalize' style={[styles.text,getsize,textStyle]}>{getChildren}</Text>
     }
   }
 
@@ -77,6 +90,7 @@ export default class Avatar extends Component{
       showOneChar,
       showCharIndex,
       style,
+      textStyle,
       imgStyle,
       onError,
       onClick,

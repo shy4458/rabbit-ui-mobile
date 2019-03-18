@@ -41,7 +41,7 @@ export default{
     /* 禁用状态 */
     disableColor : '#e9e9e9',
     /* 背景色 */
-    backGruoudColor : '#f5f5f5',
+    backgroundColor : '#f5f5f5',
     /* 背景颜色 按钮 */
     buttonTitleColor : '#ffffff',
     /* 提示类文字颜色 */
@@ -146,6 +146,7 @@ export default{
     defaultColor07 : mix( defaultColor , white , 0.3),
     defaultColor08 : mix( defaultColor , white , 0.2),
     defaultColor09 : mix( defaultColor , white , 0.1),
+    defaultHighLight01 : mix(black,defaultColor,0.1),
 
     primaryColor,
     primaryColor01 : mix( primaryColor , white , 0.9),
@@ -157,6 +158,7 @@ export default{
     primaryColor07 : mix( primaryColor , white , 0.3),
     primaryColor08 : mix( primaryColor , white , 0.2),
     primaryColor09 : mix( primaryColor , white , 0.1),
+    primaryHighLight01 : mix(black,primaryColor,0.1),
 
     successColor ,
     successColor01 : mix( successColor , white , 0.9),
@@ -168,6 +170,7 @@ export default{
     successColor07 : mix( successColor , white , 0.3),
     successColor08 : mix( successColor , white , 0.2),
     successColor09 : mix( successColor , white , 0.1),
+    successHighLight01 : mix(black,successColor,0.1),
 
     warningColor ,
     warningColor01 : mix( warningColor , white , 0.9),
@@ -179,6 +182,7 @@ export default{
     warningColor07 : mix( warningColor , white , 0.3),
     warningColor08 : mix( warningColor , white , 0.2),
     warningColor09 : mix( warningColor , white , 0.1),
+    warningHighLight01 : mix(black,warningColor,0.1),
 
     dangerColor,
     dangerColor01 : mix( dangerColor , white , 0.9),
@@ -190,7 +194,7 @@ export default{
     dangerColor07 : mix( dangerColor , white , 0.3),
     dangerColor08 : mix( dangerColor , white , 0.2),
     dangerColor09 : mix( dangerColor , white , 0.1),
-
+    dangerHighLight01 : mix(black,dangerColor,0.1),
 
 
     colorWithAlpha(name,opacity){
