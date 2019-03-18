@@ -78,7 +78,7 @@ export default class Message extends Component{
     if (title) {
       return title
     }else{
-      return 'Title'
+      return ''
     }
   }
 
@@ -87,7 +87,7 @@ export default class Message extends Component{
     if (description) {
       return description
     }else{
-      return 'SubTitle'
+      return ''
     }
   }
 
@@ -185,10 +185,7 @@ export default class Message extends Component{
      let { fadeAnim,heightV } = this.state;
 
     const onPressBody = (e) =>{
-      if (closable) {
-        return
-      }
-      if (bodyClosable) {
+      if (!bodyClosable) {
         return
       }
       if (onClose) {
@@ -212,7 +209,7 @@ export default class Message extends Component{
     }
 
     const onPressX = (e) =>{
-      if (closable) {
+      if (!closable) {
         return
       }
       if (onClose) {
@@ -249,13 +246,16 @@ export default class Message extends Component{
     const getSubTitleStr = this._getSubTitleStr();
     const getClosedStr = this._getClosedStr();
 
+    const bottomM = !description ? {marginBottom:10} : {}
+    const topM = !title ? {marginTop:10}:{}
+
     return (
       this.state.hidden ? null :
         <Animated.View style = {[styles.container,{opacity: fadeAnim},getTypeStyle]} onLayout={onLayout}>
           <Icon name={getIcon} size={Fonts.xLARGE} color={Colors.defaultColor} style={[{marginTop: 13,marginLeft: 10,marginRight: -5},getTitleColor]}/>
           <TouchableOpacity style={[styles.left]} activeOpacity={1} onPress={onPressBody}>
-            <Text style={[styles.title,getTitleColor]}>{getTitleStr}</Text>
-            <Text style={[styles.subTitle,getTitleColor]}>{getSubTitleStr}</Text>
+            {!!title &&<Text style={[styles.title,getTitleColor,bottomM]}>{getTitleStr}</Text>}
+            {!!description&& <Text style={[styles.subTitle,getTitleColor,topM]}>{getSubTitleStr}</Text>}
           </TouchableOpacity>
           <TouchableOpacity style={styles.right} onPress={onPressX}>
             <Text style={[styles.closeText,getTitleColor]}>{getClosedStr}</Text>

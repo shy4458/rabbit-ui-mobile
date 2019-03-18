@@ -5,6 +5,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
+  TouchableHighlight
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Colors from '../../commons/Colors';
@@ -62,7 +64,7 @@ export default class Button extends Component<Props> {
   _getLoading(){
     let {loading}= this.props;
     if (loading) {
-      return <Icon name={IconMap.loading}/>
+      return {flexDirection:'row'}
     }
   }
 
@@ -72,7 +74,8 @@ export default class Button extends Component<Props> {
     let fontsize = size === buttonSize.Large ? Fonts.LARGE : (size === buttonSize.Default ? Fonts.BIG:Fonts.SMALL)
     const getTextColor = this._getPropsTextColor()
     if (icon) {
-      return <Icon name={icon} size={fontsize} style={getTextColor}/>
+      return <Icon name={icon} size={fontsize} style={[getTextColor,{marginLeft: 5,
+      marginRight: 5}]}/>
     }
   }
 
@@ -99,7 +102,7 @@ export default class Button extends Component<Props> {
   //按钮大小
   _getFontSize() {
       let {size} = this.props;
-      return size === buttonSize.Large ? {fontSize:Fonts.LARGE}: (size === buttonSize.Default ? {fontSize:Fonts.BIG}: {fontSize:Fonts.SMALL})
+      return size === buttonSize.Large ? {fontSize:Fonts.xLARGE}: (size === buttonSize.Default ? {fontSize:Fonts.MIDDLE}: {fontSize:Fonts.xSMALL})
   }
 
   _getTouchSize() {
@@ -156,6 +159,25 @@ export default class Button extends Component<Props> {
       }
   }
 
+  _getHightlightColor() {
+      let {type,text} = this.props;
+      if (text) {
+        return Colors.NAMED_Colors.whiteAlpha0
+      }
+      switch (type) {
+          case "default":
+            return Colors.defaultHighLight01
+          case "primary":
+            return Colors.primaryHighLight01
+          case "success":
+            return Colors.successHighLight01
+          case "warning":
+            return Colors.warningHighLight01
+          case "danger":
+            return Colors.dangerHighLight01
+      }
+  }
+
   render() {
     const {
       type,
@@ -173,6 +195,7 @@ export default class Button extends Component<Props> {
       onLongClick,
       onDoubleClick,
       Component,
+      style,
       children
     } = this.props;
 
@@ -200,23 +223,28 @@ export default class Button extends Component<Props> {
     const getTouchSize = this._getTouchSize();
 
     const getTextColor = this._getPropsTextColor();
+    const getHightlightColor = this._getHightlightColor();
     const getSize = this._getFontSize();
     const getPosition = this._getIconPosition();
     const getLoading = this._getLoading();
     const renderNode = this._renderNode();
 
     return (
-      <TouchableOpacity style = {[Styles.Default,getPosition,getColors,getblock,getRadius,getTouchSize]}
+      <TouchableHighlight style = {[Styles.Default,getColors,getblock,getRadius,getTouchSize,style]}
         onPress={onPress}
         onLongPress={onLongPress}
-        onlayout={({event}) => this._onlayout(event)}
         disabled = {disabled}
+        activeOpacity={text ? 0.2 : 0.7}
+        underlayColor={getHightlightColor}
       >
-        {loading && getLoading}
-        {!text && !loading && !iconPosition && renderNode}
-        {icon ? null : <Text style={[getTextColor,getSize]}>{children}</Text>}
-        {!text && !loading && iconPosition == positionType.Right && renderNode}
-      </TouchableOpacity>
+        <View style={[{justifyContent: 'center',alignItems:'center',},getLoading,getPosition]}>
+          {loading && <ActivityIndicator size="small" color={type===buttonType.Default ? Colors.defaultColor : 'white'} style={{marginRight: 5}}/>}
+          {!text && !loading && iconPosition == positionType.Left && renderNode}
+          {/* {icon ? null : <Text style={[getTextColor,getSize]} >{children}</Text>} */}
+          {children && <Text style={[getTextColor,getSize]} numberOfLines={1}>{children}</Text>}
+          {!text && !loading && iconPosition == positionType.Right && renderNode}
+        </View>
+      </TouchableHighlight>
     );
   }
 };
@@ -237,6 +265,7 @@ Button.propTypes = {
   onLongClick:PropTypes.func,
   onDoubleClick:PropTypes.func,
   Component:PropTypes.object,
+  style:PropTypes.object,
 };
 
 Button.defaultProps = {
@@ -247,7 +276,7 @@ Button.defaultProps = {
   block:false,
   loading:false,
   icon:null,
-  iconPosition:null,
+  iconPosition:'left',
   circle:false,
   round:false
 }
