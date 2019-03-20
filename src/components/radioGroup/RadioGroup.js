@@ -12,16 +12,14 @@ export default class RadioGroup extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      selected:false,
-      index : 0 ,
-      value: this.props.value,
+      values: this.props.value,
     };
   }
 
   getChildContext(){
     return {
         radioGroup: {
-          value: this.state.value,
+          value: this.state.values,
           disabled : this.props.disabled,
           name : this.props.name,
           onChange : this._handleOnChange
@@ -32,12 +30,14 @@ export default class RadioGroup extends Component{
   _handleOnChange=(value , e)=>{
     console.log('RadioGroup');
     const {onChange} = this.props;
-    const oldValue = this.state.value;
+    const oldValue = this.state.values;
     console.log('oldValue:'+oldValue+'value:'+value);
+    console.log(value !== oldValue);
     if (value !== oldValue) {
       this.setState({
-        value: value
+        values: value
       });
+      console.log(this.state.values);
       if (onChange) {
         onChange(value,e);
       }
