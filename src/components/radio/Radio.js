@@ -36,7 +36,7 @@ export default class Radio extends Component{
       name = radioGroup.name
       checked = radioGroup.value === value;
       disabled = disabled || radioGroup.disabled;
-      // console.log('name:'+name+'  checked:'+checked+'  disabled:'+disabled);
+      console.log('name:'+name+'  checked:'+checked+'  disabled:'+disabled);
     }
 
     const onChanged = (event)=>{

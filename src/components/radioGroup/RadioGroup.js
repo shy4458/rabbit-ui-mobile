@@ -28,16 +28,12 @@ export default class RadioGroup extends Component{
   }
 
   _handleOnChange=(value , e)=>{
-    console.log('RadioGroup');
     const {onChange} = this.props;
     const oldValue = this.state.values;
-    console.log('oldValue:'+oldValue+'value:'+value);
-    console.log(value !== oldValue);
     if (value !== oldValue) {
       this.setState({
         values: value
       });
-      console.log(this.state.values);
       if (onChange) {
         onChange(value,e);
       }
@@ -85,10 +81,14 @@ export default class RadioGroup extends Component{
 RadioGroup.propTypes = {
   titleArray:PropTypes.array,
   disabled : PropTypes.bool,
+  value : PropTypes.string,
+  name : PropTypes.string,
 };
 
 RadioGroup.defaultProps = {
   disabled : false,
+  value : '',
+  name : '',
 };
 
 RadioGroup.childContextTypes = {
