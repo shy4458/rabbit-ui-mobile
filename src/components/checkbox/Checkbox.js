@@ -4,6 +4,9 @@ import PropTypes from "prop-types"
 import Icon from "../icon/Icon";
 import Colors from "../../commons/Colors";
 
+
+//git测试
+
 export default class Checkbox extends Component {
 
     constructor(props) {
