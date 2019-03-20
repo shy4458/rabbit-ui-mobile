@@ -12,6 +12,7 @@ import Fonts from '../../commons/Fonts';
 
 import Icon from '../icon/Icon';
 
+
 const shapeType = {
   Circle : 'circle',
   Square : 'square'
