@@ -2,30 +2,116 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Colors from '../../commons/Colors';
 
 export default class Radio extends Component{
 
   constructor(props) {
     super(props);
     this.state = {
-      selected:false
+      selected:this.props.checked
     };
   }
 
   render() {
+    let {
+      label,
+      checked,
+      value,
+      disabled,
+      name,
+      onChange,
+      style,
+      labelStyle,
+      radius,
+      children
+    } = this.props;
+
+    const {radioGroup} = this.context;
+    if(radioGroup) {
+      name = radioGroup.name
+      checked = radioGroup.value === value;
+      disabled = disabled || radioGroup.disabled;
+      // console.log('name:'+name+'  checked:'+checked+'  disabled:'+disabled);
+    }
+
+    const onChanged = (event)=>{
+      // console.log('radio');
+      // console.log('name:'+name+'  checked:'+checked+'  disabled:'+disabled);
+      if (disabled) {
+        return
+      }
+      this.setState({
+        selected: !this.state.selected
+      });
+      if (!!onChange) {
+        onChange(this.state.selected,event);
+      }
+      if (this.context.radioGroup && this.context.radioGroup.onChange) {
+        this.context.radioGroup.onChange(value , event);
+      }
+    };
+
+    const borderColorOut = this.state.selected ? {borderColor:Colors.primaryColor} : {borderColor:Colors.defaultColor};
+    const backColorIn = this.state.selected ? {backgroundColor:Colors.primaryColor} : {backgroundColor:Colors.defaultColor};
+    const radiusOut = radius*2;
+    const labelText = !!label ? label : '选项'
     return (
-      <View>
-        <Text>ddddd</Text>
-      </View>
+      <TouchableOpacity style={[styles.container,style]} activeOpacity={0.9} onPress={onChanged} disabled={disabled}>
+        <View style={[styles.out,borderColorOut,{width: radiusOut,height: radiusOut,borderRadius: radius}]}>
+          <View style={[styles.in,backColorIn,{width: radius,height: radius,borderRadius: radius/2.0}]}/>
+        </View>
+        <Text style={[styles.label,labelStyle]}>
+          {labelText}
+        </Text>
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 2
   },
+  out:{
+    borderWidth: 1,
+    borderColor: Colors.defaultColor,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  in:{
+    backgroundColor: Colors.defaultColor,
+  },
+  label:{
+    padding: 5,
+    color:Colors.titleColor
+  }
 });
+
+Radio.propTypes = {
+  label : PropTypes.string,
+  checked : PropTypes.bool,
+  value : PropTypes.any,
+  disabled : PropTypes.bool,
+  name : PropTypes.string,
+  radius : PropTypes.number,
+  onChange : PropTypes.func,
+};
+
+Radio.defaultProps = {
+  label:'选项',
+  checked : false,
+  disabled : false,
+  radius : 10,
+};
+
+Radio.contextTypes = {
+  radioGroup : PropTypes.object,
+};

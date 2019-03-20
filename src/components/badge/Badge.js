@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types';
-import Color from './commons/Colors'
+import Color from '../../commons/Colors'
 
 export default class Badge extends Component {
 
