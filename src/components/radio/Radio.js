@@ -30,23 +30,26 @@ export default class Radio extends Component{
       radius,
       children
     } = this.props;
+    checked = this.state.selected;
 
     const {radioGroup} = this.context;
     if(radioGroup) {
       name = radioGroup.name
       checked = radioGroup.value === value;
       disabled = disabled || radioGroup.disabled;
-      console.log('name:'+name+'  checked:'+checked+'  disabled:'+disabled);
     }
 
     const onChanged = (event)=>{
-      // console.log('radio');
-      // console.log('name:'+name+'  checked:'+checked+'  disabled:'+disabled);
       if (disabled) {
         return
       }
-      this.setState({
-        selected: !this.state.selected
+      this.setState((prevState) => {
+        if(!prevState.selected) {
+          return {
+            selected: true
+          }
+        }
+        return {}
       });
       if (!!onChange) {
         onChange(this.state.selected,event);
@@ -56,8 +59,8 @@ export default class Radio extends Component{
       }
     };
 
-    const borderColorOut = this.state.selected ? {borderColor:Colors.primaryColor} : {borderColor:Colors.defaultColor};
-    const backColorIn = this.state.selected ? {backgroundColor:Colors.primaryColor} : {backgroundColor:Colors.defaultColor};
+    const borderColorOut = checked ? {borderColor:Colors.primaryColor} : {borderColor:Colors.defaultColor};
+    const backColorIn = checked ? {backgroundColor:Colors.primaryColor} : {backgroundColor:Colors.defaultColor};
     const radiusOut = radius*2;
     const labelText = !!label ? label : '选项'
     return (
