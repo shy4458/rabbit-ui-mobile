@@ -21,6 +21,7 @@ export default class RadioGroupE extends Component{
   render() {
 
     const handleOnChange=(value,e)=>{
+      console.log(value);
       console.log('点击了方法传递成功');
     }
 
