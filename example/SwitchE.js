@@ -36,22 +36,43 @@ export default class SwitchE extends Component {
         <View style={styles.up}>
           <Text>Switch</Text>
           <View style={styles.group}>
-            <Text>up</Text>
-            <Switch/>
+            <Switch uncheckedLabel='左边' checkedLabel='右边' uncheckedValue='张建东' checkedValue='孙洪雨' onChange={(value,checked,event)=>{
+              console.log('value:'+value+'  checked:'+checked+'  e:'+event);
+            }}/>
+            <Switch uncheckedLabel='左边' checkedLabel='右边' disabled />
+            <Switch uncheckedLabel='左边' checkedLabel='右边' checked/>
           </View>
+          <Switch uncheckedLabel='左边' checkedLabel='右边'/>
+          <Switch uncheckedLabel='左边' checkedLabel='右边' disabled />
+          <Switch uncheckedLabel='左边' checkedLabel='右边' checked disabled/>
         </View>
         <View style={styles.down}>
           <View style={styles.left}>
             <Text>left</Text>
             <View style={styles.group}>
-              <Text>safsafdas</Text>
+              <Switch uncheckedLabel='左边' checkedLabel='右边' uncheckedValue='张建东' checkedValue='孙洪雨' onChange={(value,checked,event)=>{
+                console.log('value:'+value+'  checked:'+checked+'  e:'+event);
+              }}/>
+              <Switch uncheckedLabel='左边' checkedLabel='右边' disabled />
+              <Switch uncheckedLabel='左边' checkedLabel='右边' checked/>
             </View>
+            <Switch uncheckedLabel='左边' checkedLabel='右边'/>
+            <Switch uncheckedLabel='左边' checkedLabel='右边' disabled />
+            <Switch uncheckedLabel='左边' checkedLabel='右边' checked disabled/>
           </View>
           <View style={styles.right}>
             <Text>right</Text>
+            <Text>Switch</Text>
             <View style={styles.group}>
-              <Text>safsafdas</Text>
+              <Switch uncheckedLabel='左边' checkedLabel='右边' uncheckedValue='张建东' checkedValue='孙洪雨' onChange={(value,checked,event)=>{
+                console.log('value:'+value+'  checked:'+checked+'  e:'+event);
+              }}/>
+              <Switch uncheckedLabel='左边' checkedLabel='右边' disabled />
+              <Switch uncheckedLabel='左边' checkedLabel='右边' checked/>
             </View>
+            <Switch uncheckedLabel='左边' checkedLabel='右边'/>
+            <Switch uncheckedLabel='左边' checkedLabel='右边' disabled />
+            <Switch uncheckedLabel='左边' checkedLabel='右边' checked disabled/>
           </View>
         </View>
       </View>
@@ -91,5 +112,6 @@ const styles = StyleSheet.create({
     justifyContent:'space-around',
     alignItems: 'center',
     paddingBottom: 30,
+    flexWrap: 'wrap'
   },
 });
