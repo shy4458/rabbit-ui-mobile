@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import CheckBox from './components/checkbox/CheckBox'
+import CheckBox from '../src/components/checkbox'
 
 export default class CheckBoxE extends Component {
 
